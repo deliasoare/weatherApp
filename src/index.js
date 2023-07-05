@@ -16,7 +16,7 @@ function fillFormWithInfo(location) {
     .then(result => {
         console.log(result);
         document.querySelector('.name').textContent = result.location.name;
-        const date = new Date(result.current.last_updated)
+        const date = new Date(result.location.localtime)
         const dayMonthYr = date.toDateString();
         const time = `${date.getHours < 10 ? `0${date.getHours}` : date.getHours()}:${date.getMinutes() < 10 ? `0${date.getMinutes()}` : date.getMinutes()}`;
         document.querySelector('.dayInfo').textContent = dayMonthYr;
@@ -24,10 +24,17 @@ function fillFormWithInfo(location) {
         document.querySelector('.weatherDescription').textContent = result.current.condition.text;
         if (currentMeasurements === "C") {
             document.querySelector('.degrees').textContent = `${result.current.temp_c} °C`
+            document.querySelector('.feelsLike').textContent = `${result.current.feelslike_c} °C`;
+            document.querySelector('.wind').textContent = `${result.current.wind_kph} km/h`;
+            document.querySelector('.precipitation').textContent = `${result.current.precip_mm} mm`;
         }
         else {
             document.querySelector('.degrees').textContent = `${result.current.temp_f} °F`;
+            document.querySelector('.feelsLike').textContent = `${result.current.feelslike_f} °F`;
+            document.querySelector('.wind').textContent = `${result.current.wind_mph} m/h`;
+            document.querySelector('.precipitation').textContent = `${result.current.precip_in} in`;
         }
+        document.querySelector('.rainChance').textContent = `${result.forecast.forecastday[0].hour[date.getHours()].chance_of_rain}%`
     });
 }
 

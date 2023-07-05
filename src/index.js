@@ -1,4 +1,6 @@
-import Styles from './styles/styles.scss'
+import Styles from './styles/styles.scss';
+import boilerplateCode from './boilerplate';
+let currentMeasurements = 'C';
 
 async function getLocationInfo(location="London") {
     const info = await fetch("http://api.weatherapi.com/v1/forecast.json?key=53a560bacc8a4f86884150535230407&q=London&days=7&aqi=no&alerts=no", {mode: 'cors'});
@@ -9,3 +11,7 @@ async function getLocationInfo(location="London") {
 
 getLocationInfo()
 .then(console.log)
+
+window.onload = function() {
+    boilerplateCode();
+}

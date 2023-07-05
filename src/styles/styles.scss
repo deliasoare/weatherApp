@@ -1,11 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Lilita+One&display=swap');
+
 html, body {
     width: 100%;
     height: 100%;
     padding: 0;
     margin: 0;
+    font-family: 'Lilita-One', cursive;
+    font-size: 2rem;
     .content {
         min-height: 100%;
         min-width: 100%;
         background: url('../assets/background.png') 0 no-repeat;
+        background-position: center;
     }
 }

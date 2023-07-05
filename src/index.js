@@ -11,6 +11,18 @@ async function getLocationInfo(location) {
     return london;
 }
 
+function celsiusSystemFunc(result) {
+    document.querySelector('.degrees').textContent = `${result.current.temp_c} °C`
+            document.querySelector('.feelsLike').textContent = `${result.current.feelslike_c} °C`;
+            document.querySelector('.wind').textContent = `${result.current.wind_kph} km/h`;
+            document.querySelector('.precipitation').textContent = `${result.current.precip_mm} mm`;
+}
+function fahrenSystemFunc(result) {
+    document.querySelector('.degrees').textContent = `${result.current.temp_f} °F`;
+            document.querySelector('.feelsLike').textContent = `${result.current.feelslike_f} °F`;
+            document.querySelector('.wind').textContent = `${result.current.wind_mph} m/h`;
+            document.querySelector('.precipitation').textContent = `${result.current.precip_in} in`;
+}
 function fillFormWithInfo(location) {
     getLocationInfo(location)
     .then(result => {
@@ -22,18 +34,10 @@ function fillFormWithInfo(location) {
         document.querySelector('.dayInfo').textContent = dayMonthYr;
         document.querySelector('.currentTime').textContent = time;
         document.querySelector('.weatherDescription').textContent = result.current.condition.text;
-        if (currentMeasurements === "C") {
-            document.querySelector('.degrees').textContent = `${result.current.temp_c} °C`
-            document.querySelector('.feelsLike').textContent = `${result.current.feelslike_c} °C`;
-            document.querySelector('.wind').textContent = `${result.current.wind_kph} km/h`;
-            document.querySelector('.precipitation').textContent = `${result.current.precip_mm} mm`;
-        }
-        else {
-            document.querySelector('.degrees').textContent = `${result.current.temp_f} °F`;
-            document.querySelector('.feelsLike').textContent = `${result.current.feelslike_f} °F`;
-            document.querySelector('.wind').textContent = `${result.current.wind_mph} m/h`;
-            document.querySelector('.precipitation').textContent = `${result.current.precip_in} in`;
-        }
+        if (currentMeasurements === "C") 
+            celsiusSystemFunc(result);
+        else 
+            fahrenSystemFunc(result);
         document.querySelector('.rainChance').textContent = `${result.forecast.forecastday[0].hour[date.getHours()].chance_of_rain}%`
     });
 }

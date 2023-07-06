@@ -41,6 +41,8 @@ function fillFormWithInfo(location) {
         else 
             fahrenSystemFunc(result);
         document.querySelector('.rainChance').textContent = `${result.forecast.forecastday[0].hour[date.getHours()].chance_of_rain}%`
+
+        
     });
 }
 

@@ -24,6 +24,43 @@ function fahrenSystemFunc(result) {
     document.querySelector('.wind').textContent = `${result.current.wind_mph} m/h`;
     document.querySelector('.precipitation').textContent = `${result.current.precip_in} in`;
 }
+function daysOfTheWeek(result, degrees) {
+    const weekDay = {
+        0: 'Sunday',
+        1: 'Monday',
+        2: 'Tuesday',
+        3: 'Wednesday',
+        4: 'Thursday',
+        5: 'Friday',
+        6: 'Saturday'
+    }
+    const daysContainer = document.querySelector('.weekSummary');
+    for(let i = 1; i < result.forecast.forecastday.length; i++) {
+        const day = document.createElement('div');
+        day.classList = 'upcomingDayDiv';
+        const name = document.createElement('div');
+        name.classList = 'dayName';
+        const date = new Date(result.forecast.forecastday[i].date);
+        name.textContent = date.toDateString();
+        const avgTemp = document.createElement('div');
+        avgTemp.classList = 'avgTemp';
+        avgTemp.textContent = degrees === 'C' ? `${result.forecast.forecastday[i].day.avgtemp_c} °C` : `${result.forecast.forecastday[i].day.avgtemp_f} °F`;
+        const rainChanceDiv = document.createElement('div');
+        rainChanceDiv.classList = 'rainChanceDiv';
+        const rainChanceIcon = document.createElement('img');
+        rainChanceIcon.classList = 'rainChanceIcon';
+        // ICON
+        const rainChance = document.createElement('div');
+        rainChance.classList = 'rainChance';
+        rainChance.textContent = `${result.forecast.forecastday[i].day.daily_chance_of_rain}%` ;
+
+        rainChanceDiv.append(rainChanceIcon, rainChance);
+
+        day.append(name, avgTemp, rainChanceDiv);
+        daysContainer.append(day);
+
+    }
+}
 function fillFormWithInfo(location) {
     getLocationInfo(location)
     .then(result => {
@@ -36,13 +73,17 @@ function fillFormWithInfo(location) {
         document.querySelector('.dayInfo').textContent = dayMonthYr;
         document.querySelector('.currentTime').textContent = time;
         document.querySelector('.weatherDescription').textContent = result.current.condition.text;
-        if (currentMeasurements === "C") 
+        if (currentMeasurements === "C") {
             celsiusSystemFunc(result);
-        else 
+            daysOfTheWeek(result, 'C');
+        }
+        else {
             fahrenSystemFunc(result);
+            daysOfTheWeek(result, 'F');
+        }
+
         document.querySelector('.rainChance').textContent = `${result.forecast.forecastday[0].hour[date.getHours()].chance_of_rain}%`
 
-        
     });
 }
 

@@ -101,6 +101,21 @@ document.querySelector('.toggleDegreesButton').addEventListener('click', functio
     }
 })
 
+document.querySelector('.searchIcon').addEventListener('click', function() {
+    if ( document.querySelector('.input-search').style.width === '50px') 
+        return;
+    let input = document.querySelector('.input-search').value;
+    fillFormWithInfo(input);
+})
+
+document.addEventListener('keydown', function(e) {
+    if (document.activeElement !== document.querySelector('.input-search'))
+        return;
+    if (e.key === "Enter") {
+        let input = document.querySelector('.input-search').value;
+        fillFormWithInfo(input);
+    }
+})
 
 window.onload = function() {
     boilerplateCode();

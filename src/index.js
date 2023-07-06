@@ -35,6 +35,7 @@ function daysOfTheWeek(result, degrees) {
         6: 'Saturday'
     }
     const daysContainer = document.querySelector('.weekSummary');
+    daysContainer.innerHTML = '';
     for(let i = 1; i < result.forecast.forecastday.length; i++) {
         const day = document.createElement('div');
         day.classList = 'upcomingDayDiv';
@@ -91,12 +92,16 @@ document.querySelector('.toggleDegreesButton').addEventListener('click', functio
     if (currentMeasurements === 'C') {
         currentMeasurements = 'F';
         fahrenSystemFunc(currentResults);
+        daysOfTheWeek(currentResults, 'F');
     }
     else {
         currentMeasurements = 'C';
         celsiusSystemFunc(currentResults);
+        daysOfTheWeek(currentResults, 'C');
     }
 })
+
+
 window.onload = function() {
     boilerplateCode();
     fillFormWithInfo("Bucharest");

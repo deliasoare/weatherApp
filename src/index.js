@@ -14,7 +14,7 @@ async function getLocationInfo(location) {
         setTimeout(function() {
             document.querySelector('.loading').style.display = 'none';
             document.querySelector('.error').style.display = 'flex';
-        }, 4000)
+        }, 3000)
 
         document.querySelector('.close').addEventListener('click', function() {
             document.querySelector('.errorWarning').style.display = 'none';
@@ -68,7 +68,6 @@ function daysOfTheWeek(result, degrees) {
         rainChanceDiv.classList = 'rainChanceDiv';
         const rainChanceIcon = document.createElement('img');
         rainChanceIcon.classList = 'rainChanceIcon';
-        // ICON
         const rainChance = document.createElement('div');
         rainChance.classList = 'rainChance';
         rainChance.textContent = `${result.forecast.forecastday[i].day.daily_chance_of_rain}%` ;
@@ -95,6 +94,7 @@ function fillFormWithInfo(location) {
         document.querySelector('.dayInfo').textContent = dayMonthYr;
         document.querySelector('.currentTime').textContent = time;
         document.querySelector('.weatherDescription').textContent = result.current.condition.text;
+        document.querySelector('.degreesIcon').src = result.current.condition.icon;
         if (currentMeasurements === "C") {
             celsiusSystemFunc(result);
             daysOfTheWeek(result, 'C');

@@ -210,13 +210,35 @@ html, body {
                     border-bottom-right-radius: 25px;
                 }
             }
-            .weekSummary {
+            .switchBetweenHours {
+                display: flex;
+                align-items: center;
+                .leftArrow, .rightArrow {
+                    width: 30px;
+                    height: 30px;
+                }
+                .circles {
+                    display: flex;
+                    gap: min(5px, 5%);
+                    .circle {
+                        width: 20px;
+                        height:20px;
+                        border-radius: 50%;
+                        background: transparent;
+                        border: 2.5px solid white;
+                    }
+                    .circleOne {
+                        background: $loadOrError;
+                    }
+                }
+            }
+            .weekSummary, .hourContainer {
+                width: 100%;
                 display: flex;
                 font-size: 1.3rem;
                 justify-content: space-between;
                 
-                }
-                .upcomingDayDiv, .hourDiv{
+                .upcomingDayDiv, .hourDiv {
                     display: flex;
                     flex-direction: column;
                     row-gap: 5%;
@@ -227,6 +249,7 @@ html, body {
                         display: flex;
                     }
                 }
+        }
     }
 }
 

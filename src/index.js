@@ -1,6 +1,7 @@
 import Styles from './styles/styles.scss';
 import iconRain from './assets/rain.svg';
-
+import leftArrow from './assets/leftArrow.svg';
+import rightArrow from './assets/rightArrow.svg';
 
 import boilerplateCode from './boilerplate';
 let currentMeasurements = 'C';
@@ -93,7 +94,15 @@ function daysOfTheWeek(result) {
     }
 }
 function hoursOfTheDay(result) {
+    document.querySelector('.leftArrow').src = leftArrow;
+    document.querySelector('.rightArrow').src = rightArrow;
     let CONTAINERS = [];
+    CONTAINERS[0] = document.createElement('div'); 
+    CONTAINERS[0].classList = 'hourContainer containerOne';
+    CONTAINERS[1] = document.createElement('div'); 
+    CONTAINERS[1].classList = 'hourContainer containerTwo';
+    CONTAINERS[2] = document.createElement('div'); 
+    CONTAINERS[2].classList = 'hourContainer containerThree';
     const container = document.querySelector('.weekSummary');
     container.innerHTML = '';
     let currentDate = new Date(result.location.localtime);
@@ -131,11 +140,13 @@ function hoursOfTheDay(result) {
             rainChanceDiv.append(rainChanceIcon, rainChance);
 
             hour.append(name, avgTempDiv, rainChanceDiv);
-
+            
             CONTAINERS[j].append(hour);
         }
     }
     container.append(CONTAINERS[0]);
+
+
 }
 function fillFormWithInfo(location) {
     getLocationInfo(location)

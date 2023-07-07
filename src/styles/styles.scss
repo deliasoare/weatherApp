@@ -188,6 +188,17 @@ html, body {
             display: flex;
             font-size: 1.3rem;
             justify-content: space-between;
+            .upcomingDayDiv {
+                display: flex;
+                flex-direction: column;
+                row-gap: 5%;
+                .dayName {
+                    margin-bottom: 5%;
+                }
+                > div {
+                    display: flex;
+                }
+            }
         }
     }
 

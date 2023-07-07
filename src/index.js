@@ -1,5 +1,6 @@
 import Styles from './styles/styles.scss';
-import moment from 'moment';
+import iconRain from './assets/rain.svg';
+
 
 import boilerplateCode from './boilerplate';
 let currentMeasurements = 'C';
@@ -61,20 +62,26 @@ function daysOfTheWeek(result, degrees) {
         name.classList = 'dayName';
         const date = new Date(result.forecast.forecastday[i].date);
         name.textContent = date.toDateString();
+        const avgTempDiv = document.createElement('div');
         const avgTemp = document.createElement('div');
         avgTemp.classList = 'avgTemp';
         avgTemp.textContent = degrees === 'C' ? `${result.forecast.forecastday[i].day.avgtemp_c} °C` : `${result.forecast.forecastday[i].day.avgtemp_f} °F`;
+        const avgTempIcon = document.createElement('img');
+        avgTempIcon.classList = 'avgTempIcon weatherIcon';
+        avgTempIcon.src = result.forecast.forecastday[i].day.condition.icon;
         const rainChanceDiv = document.createElement('div');
         rainChanceDiv.classList = 'rainChanceDiv';
         const rainChanceIcon = document.createElement('img');
-        rainChanceIcon.classList = 'rainChanceIcon';
+        rainChanceIcon.classList = 'rainChanceIcon weatherIcon';
+        rainChanceIcon.src = iconRain;
         const rainChance = document.createElement('div');
         rainChance.classList = 'rainChance';
         rainChance.textContent = `${result.forecast.forecastday[i].day.daily_chance_of_rain}%` ;
 
+        avgTempDiv.append(avgTempIcon, avgTemp);
         rainChanceDiv.append(rainChanceIcon, rainChance);
 
-        day.append(name, avgTemp, rainChanceDiv);
+        day.append(name, avgTempDiv, rainChanceDiv);
         daysContainer.append(day);
 
     }

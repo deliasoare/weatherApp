@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Lilita+One&display=swap');
 
-$content: 'C';
+$loadOrError:hsl(310, 60%, 63%);
 
 * {
     padding: 0;
@@ -12,6 +12,66 @@ $content: 'C';
 html, body {
     width: 100%;
     height: 100%;
+    .errorWarning {
+        z-index: 9999;
+        display: none;
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .error {
+            display: none;
+            background: $loadOrError;
+            border-radius: 20px;
+            position: absolute;
+            width: 30%;
+            min-width: 300px;
+            height: 30%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.3rem;
+            padding: 0.5em;
+            .close {
+                color: #aaa;
+                right: 1%;
+                top: 0;
+                font-weight:bold;
+                font-size: 2rem;
+                position: absolute;
+                &:hover, &:focus {
+                    color: black;
+                    cursor: pointer;
+                }
+            }
+        }
+        .loading {
+            display: none;
+            width: 200px;
+            height: 200px;
+            position: absolute;
+            border-radius: 50%;
+            background: transparent;
+            border: 40px solid #f3f3f3;
+            border-top: 40px solid $loadOrError;
+            animation: load 1.2s ease-in-out infinite;
+
+
+        }
+        @keyframes load {
+            0% {
+                transform: rotate(0deg);
+              }
+              100% {
+                transform: rotate(360deg);
+              }
+            }
+        }
+    }
+
     .content {
         height: 100%;
         width: 100%;
@@ -19,6 +79,7 @@ html, body {
         background-size: cover;
         background-position: center;
         padding: 1em 4em;
+        
         .mainContent {
             height: 100%;
             width: 100%;
@@ -125,7 +186,7 @@ html, body {
             justify-content: space-between;
         }
     }
-}
+
 
 .icon {
     max-width: 30px;

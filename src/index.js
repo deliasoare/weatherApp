@@ -4,8 +4,26 @@ import moment from 'moment';
 import boilerplateCode from './boilerplate';
 let currentMeasurements = 'C';
 let currentResults;
-
+let firstSearch = true
 async function getLocationInfo(location) {
+    if (firstSearch !== true) {
+        document.querySelector('.errorWarning').style.display = 'flex';  
+        document.querySelector('.loading').style.display = 'flex';
+        document.querySelector('.error').style.display = 'none';
+
+        setTimeout(function() {
+            document.querySelector('.loading').style.display = 'none';
+            document.querySelector('.error').style.display = 'flex';
+        }, 4000)
+
+        document.querySelector('.close').addEventListener('click', function() {
+            document.querySelector('.errorWarning').style.display = 'none';
+        })
+        window.onclick = (e) => {
+            if (e.target === document.querySelector('.errorWarning') && document.querySelector('.error').style.display === 'flex')
+               document.querySelector('.errorWarning').style.display = 'none';
+        }
+    }
     const info = await fetch(`http://api.weatherapi.com/v1/forecast.json?key=53a560bacc8a4f86884150535230407&q=${location}&days=7&aqi=no&alerts=no`, {mode: 'cors'});
     const london = info.json();
 
@@ -65,6 +83,9 @@ function daysOfTheWeek(result, degrees) {
 function fillFormWithInfo(location) {
     getLocationInfo(location)
     .then(result => {
+        if (result.error)
+            return;
+        document.querySelector('.errorWarning').style.display = 'none';
         console.log(result);
         currentResults = result;
         document.querySelector('.name').textContent = result.location.name;
@@ -84,8 +105,7 @@ function fillFormWithInfo(location) {
         }
 
         document.querySelector('.rainChance').textContent = `${result.forecast.forecastday[0].hour[date.getHours()].chance_of_rain}%`
-
-    });
+    })
 }
 
 document.querySelector('.toggleDegreesButton').addEventListener('click', function() {
@@ -102,7 +122,7 @@ document.querySelector('.toggleDegreesButton').addEventListener('click', functio
 })
 
 document.querySelector('.searchIcon').addEventListener('click', function() {
-    if ( document.querySelector('.input-search').style.width === '50px') 
+    if (document.querySelector('.input-search').style.width === '50px') 
         return;
     let input = document.querySelector('.input-search').value;
     fillFormWithInfo(input);
@@ -120,4 +140,5 @@ document.addEventListener('keydown', function(e) {
 window.onload = function() {
     boilerplateCode();
     fillFormWithInfo("Bucharest");
+    firstSearch = false;
 }

@@ -18,34 +18,35 @@ html, body {
         z-index: 9999;
         display: none;
         position: absolute;
-        height: 100%;
-        width: 100%;
+        min-height: 100%;
+        min-width: 100%;
         background-color: rgba(0, 0, 0, 0.5);
         display: flex;
         justify-content: center;
         align-items: center;
         .error {
             display: none;
-            background: $loadOrError;
+            background: rgba(0, 0, 0, 0.5);
             border-radius: 20px;
             position: absolute;
-            width: 30%;
-            min-width: 300px;
+            width: 20%;
+            min-width: 150px;
+            border: 10px solid $loadOrErrorBg;
             height: 30%;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 1.3rem;
-            padding: 0.5em;
+            font-size: 1.1rem;
+            padding: 1.5em;
             .close {
                 color: white;
                 right: 1%;
                 top: 0;
                 font-weight:bold;
-                font-size: 2rem;
+                font-size: 1.5rem;
                 position: absolute;
                 &:hover, &:focus {
-                    color: #aaa;
+                    color: $loadOrError;
                     cursor: pointer;
                 }
             }
@@ -71,18 +72,17 @@ html, body {
             }
         }
     }
-
     .content {
-        height: 100%;
-        width: 100%;
-        background: url('../assets/background.png') 0 no-repeat, lightcoral;
+        min-height: 100%;
+        min-width: 100%;
+        background: url('../assets/background.png') 0 no-repeat, $loadOrErrorBg;
         background-size: cover;
         background-position: center;
         padding: 1em 4em;
         
         .mainContent {
-            height: 100%;
-            width: 100%;
+            min-height: 95vh;
+            min-width: 100%;
             display: grid;
             align-content: space-evenly;
             grid-template-rows: 3fr 1fr;

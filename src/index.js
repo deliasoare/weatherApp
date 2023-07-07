@@ -5,7 +5,8 @@ import iconRain from './assets/rain.svg';
 import boilerplateCode from './boilerplate';
 let currentMeasurements = 'C';
 let currentResults;
-let firstSearch = true
+let firstSearch = true;
+
 async function getLocationInfo(location) {
     if (firstSearch !== true) {
         document.querySelector('.errorWarning').style.display = 'flex';  
@@ -94,7 +95,7 @@ function fillFormWithInfo(location) {
         document.querySelector('.errorWarning').style.display = 'none';
         console.log(result);
         currentResults = result;
-        document.querySelector('.name').textContent = result.location.name;
+        document.querySelector('.name').textContent = `${result.location.name}, ${result.location.country}`;
         const date = new Date(result.location.localtime)
         const dayMonthYr = date.toDateString();
         const time = `${date.getHours < 10 ? `0${date.getHours}` : date.getHours()}:${date.getMinutes() < 10 ? `0${date.getMinutes()}` : date.getMinutes()}`;

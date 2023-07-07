@@ -202,6 +202,12 @@ html, body {
                 .days {
                     border-right: none;
                     background: $loadOrError;
+                    border-top-left-radius: 25px;
+                    border-bottom-left-radius: 25px;
+                }
+                .hours {
+                    border-top-right-radius: 25px;
+                    border-bottom-right-radius: 25px;
                 }
             }
             .weekSummary {
@@ -210,11 +216,11 @@ html, body {
                 justify-content: space-between;
                 
                 }
-                .upcomingDayDiv {
+                .upcomingDayDiv, .hourDiv{
                     display: flex;
                     flex-direction: column;
                     row-gap: 5%;
-                    .dayName {
+                    .dayName, .hourName {
                         margin-bottom: 5%;
                     }
                     > div {

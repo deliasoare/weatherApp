@@ -8,6 +8,9 @@ let currentResults;
 let firstSearch = true;
 let secondaryInfoSelected = 'days';
 
+const daysButton = document.querySelector('.days');
+const hoursButton = document.querySelector('.hours');
+
 async function getLocationInfo(location) {
     if (firstSearch !== true) {
         document.querySelector('.errorWarning').style.display = 'flex';  
@@ -45,7 +48,8 @@ function fahrenSystemFunc(result) {
     document.querySelector('.wind').textContent = `${result.current.wind_mph} m/h`;
     document.querySelector('.precipitation').textContent = `${result.current.precip_in} in`;
 }
-function daysOfTheWeek(result, degrees) {
+function daysOfTheWeek(result) {
+    document.querySelector('.weekSummary').innerHTML = '';
     const weekDay = {
         0: 'Sunday',
         1: 'Monday',
@@ -67,7 +71,7 @@ function daysOfTheWeek(result, degrees) {
         const avgTempDiv = document.createElement('div');
         const avgTemp = document.createElement('div');
         avgTemp.classList = 'avgTemp';
-        avgTemp.textContent = degrees === 'C' ? `${result.forecast.forecastday[i].day.avgtemp_c} °C` : `${result.forecast.forecastday[i].day.avgtemp_f} °F`;
+        avgTemp.textContent = currentMeasurements === 'C' ? `${result.forecast.forecastday[i].day.avgtemp_c} °C` : `${result.forecast.forecastday[i].day.avgtemp_f} °F`;
         const avgTempIcon = document.createElement('img');
         avgTempIcon.classList = 'avgTempIcon weatherIcon';
         avgTempIcon.src = result.forecast.forecastday[i].day.condition.icon;
@@ -88,6 +92,51 @@ function daysOfTheWeek(result, degrees) {
 
     }
 }
+function hoursOfTheDay(result) {
+    let CONTAINERS = [];
+    const container = document.querySelector('.weekSummary');
+    container.innerHTML = '';
+    let currentDate = new Date(result.location.localtime);
+    let firstHour = currentDate.getHours() + 1;
+    let currentHour = firstHour;    
+    let currentDay = 0;
+    for (let j = 0; j < 2; j++) {
+        for (let i = 0; i < 8; i++) {
+            const hour = document.createElement('div');
+            hour.classList = 'hourDiv';
+
+            if (currentHour + 1 >= 24 ) {
+                currentDay++;
+                currentHour = currentHour - 23;
+            }
+            else
+                currentHour = currentHour + 1;
+            const name = document.createElement('div');
+            name.classList = 'hourName';
+            name.textContent = currentHour > 12 ? `${currentHour - 12} pm` : `${currentHour} am`;
+            const avgTempDiv = document.createElement('div');
+            const avgTempIcon = document.createElement('img');
+            avgTempIcon.src = result.forecast.forecastday[currentDay].hour[currentHour].condition.icon;
+            avgTempIcon.classList = 'weatherIcon';
+            const avgTemp = document.createElement('div');
+            avgTemp.textContent = currentMeasurements === 'C' ? `${result.forecast.forecastday[currentDay].hour[currentHour].feelslike_c} °C` : `${result.forecast.forecastday[currentDay].hour[currentHour].feelslike_f} °F`
+            const rainChanceDiv = document.createElement('div');
+            const rainChanceIcon = document.createElement('img');
+            rainChanceIcon.classList = 'weatherIcon';
+            rainChanceIcon.src = iconRain;
+            const rainChance = document.createElement('div');
+            rainChance.textContent = `${result.forecast.forecastday[currentDay].hour[currentHour].chance_of_rain}%`
+
+            avgTempDiv.append(avgTempIcon, avgTemp);
+            rainChanceDiv.append(rainChanceIcon, rainChance);
+
+            hour.append(name, avgTempDiv, rainChanceDiv);
+
+            CONTAINERS[j].append(hour);
+        }
+    }
+    container.append(CONTAINERS[0]);
+}
 function fillFormWithInfo(location) {
     getLocationInfo(location)
     .then(result => {
@@ -106,13 +155,14 @@ function fillFormWithInfo(location) {
         document.querySelector('.degreesIcon').src = result.current.condition.icon;
         if (currentMeasurements === "C") {
             celsiusSystemFunc(result);
-            daysOfTheWeek(result, 'C');
         }
         else {
             fahrenSystemFunc(result);
-            daysOfTheWeek(result, 'F');
         }
-
+        if (secondaryInfoSelected === 'days')
+            daysOfTheWeek(currentResults);
+        else
+            hoursOfTheDay(currentResults);        
         document.querySelector('.rainChance').textContent = `${result.forecast.forecastday[0].hour[date.getHours()].chance_of_rain}%`
     })
 }
@@ -121,13 +171,16 @@ document.querySelector('.toggleDegreesButton').addEventListener('click', functio
     if (currentMeasurements === 'C') {
         currentMeasurements = 'F';
         fahrenSystemFunc(currentResults);
-        daysOfTheWeek(currentResults, 'F');
+
     }
     else {
         currentMeasurements = 'C';
         celsiusSystemFunc(currentResults);
-        daysOfTheWeek(currentResults, 'C');
     }
+    if (secondaryInfoSelected === 'days')
+        daysOfTheWeek(currentResults);
+    else
+        hoursOfTheDay(currentResults);
 })
 
 document.querySelector('.searchIcon').addEventListener('click', function() {
@@ -146,6 +199,18 @@ document.addEventListener('keydown', function(e) {
     }
 })
 
+daysButton.addEventListener('click', function() {
+    hoursButton.style.background = 'transparent';
+    daysButton.style.background = 'rgba(248, 105, 160, 0.8)';
+    daysOfTheWeek(currentResults);
+    secondaryInfoSelected = 'days';
+})
+hoursButton.addEventListener('click', function() {
+    daysButton.style.background = 'transparent';
+    hoursButton.style.background = 'rgba(248, 105, 160, 0.8)';
+    hoursOfTheDay(currentResults);
+    secondaryInfoSelected = 'hours';
+})
 window.onload = function() {
     boilerplateCode();
     fillFormWithInfo("Bucharest");

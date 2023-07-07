@@ -85,7 +85,7 @@ html, body {
             min-width: 100%;
             display: grid;
             align-content: space-evenly;
-            grid-template-rows: 3fr 1fr;
+            grid-template-rows: 1fr 1fr;
             .todayInfo {
                 display: grid;
                 grid-template-columns: 1fr 1fr;
@@ -184,23 +184,45 @@ html, body {
                 }
             }
         }
-        .weekSummary {
+        .summaryDayHour {
             display: flex;
-            font-size: 1.3rem;
-            justify-content: space-between;
-            .upcomingDayDiv {
-                display: flex;
-                flex-direction: column;
-                row-gap: 5%;
-                .dayName {
-                    margin-bottom: 5%;
+            flex-direction: column;
+            justify-content: space-evenly;
+            .toggleDaysHours {
+                display:flex;
+                .days, .hours {
+                    background:transparent;
+                    outline: none;
+                    border: 2px solid $loadOrError;
+                    font-size: 1.25rem;
+                    margin:0;
+                    padding:0.5em;
+                    cursor: pointer;
                 }
-                > div {
-                    display: flex;
+                .days {
+                    border-right: none;
+                    background: $loadOrError;
                 }
             }
-        }
+            .weekSummary {
+                display: flex;
+                font-size: 1.3rem;
+                justify-content: space-between;
+                
+                }
+                .upcomingDayDiv {
+                    display: flex;
+                    flex-direction: column;
+                    row-gap: 5%;
+                    .dayName {
+                        margin-bottom: 5%;
+                    }
+                    > div {
+                        display: flex;
+                    }
+                }
     }
+}
 
 
 .icon {

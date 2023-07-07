@@ -6,6 +6,7 @@ import boilerplateCode from './boilerplate';
 let currentMeasurements = 'C';
 let currentResults;
 let firstSearch = true;
+let secondaryInfoSelected = 'days';
 
 async function getLocationInfo(location) {
     if (firstSearch !== true) {

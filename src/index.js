@@ -11,6 +11,7 @@ let secondaryInfoSelected = 'days';
 const mainColor = '#f869a0';
 const daysButton = document.querySelector('.days');
 const hoursButton = document.querySelector('.hours');
+let hourContainers = [];
 
 async function getLocationInfo(location) {
     if (firstSearch !== true) {
@@ -136,7 +137,6 @@ const manipDataWResults = function() {
         }
         return CONTAINERS;
     }
-    let hourContainers = [];
     let currentSlide = 0;
         const sliderManipulation = () => {
             const circles = document.querySelectorAll('.circle');
@@ -174,9 +174,6 @@ const manipDataWResults = function() {
         }
 
         const hoursOfTheDay = function() {
-            if (hourContainers.length === 0)
-                hourContainers = createSlides();
-            setTimeout(() => {
             const container = document.querySelector('.weekSummary');
             container.innerHTML = '';
             document.querySelector('.leftArrow').src = leftArrow;
@@ -184,9 +181,8 @@ const manipDataWResults = function() {
             document.querySelector('.switchBetweenHours').style.display = 'flex';
 
             container.append(hourContainers[currentSlide]);
-            }, 0)
         }
-    return {daysOfTheWeek, hoursOfTheDay, sliderManipulation};
+    return {daysOfTheWeek, hoursOfTheDay, sliderManipulation, createSlides};
 }();
 function fillFormWithInfo(location) {
     getLocationInfo(location)
@@ -195,6 +191,7 @@ function fillFormWithInfo(location) {
             return;
         document.querySelector('.errorWarning').style.display = 'none';
         currentResults = result;
+        hourContainers = manipDataWResults.createSlides();
         document.querySelector('.name').textContent = `${result.location.name}, ${result.location.country}`;
         const date = new Date(result.location.localtime)
         const dayMonthYr = date.toDateString();

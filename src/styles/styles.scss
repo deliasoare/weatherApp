@@ -227,6 +227,7 @@ html, body {
                         border-radius: 50%;
                         background: transparent;
                         border: 2.5px solid white;
+                        cursor: pointer;
                     }
                     .circleOne {
                         background: $loadOrError;
@@ -267,6 +268,7 @@ html, body {
 }
 .toggleDegreesButton {
     position: absolute;
+    cursor: pointer;
     top: 0;
     right: 0;
     margin: 10px;

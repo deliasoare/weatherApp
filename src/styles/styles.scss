@@ -211,7 +211,7 @@ html, body {
                 }
             }
             .switchBetweenHours {
-                display: flex;
+                display: none;
                 align-items: center;
                 .leftArrow, .rightArrow {
                     width: 30px;

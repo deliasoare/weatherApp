@@ -14,4 +14,5 @@ export default function boilerplateCode() {
     precipIcon.src = iconPrecip;
     const feelsLikeIcon = document.querySelector('.feelsLikeIcon');
     feelsLikeIcon.src = iconFeelsLike;
+    
 }

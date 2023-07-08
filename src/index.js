@@ -226,8 +226,10 @@ document.querySelector('.toggleDegreesButton').addEventListener('click', functio
     }
     if (secondaryInfoSelected === 'days')
         manipDataWResults.daysOfTheWeek();
-    else
+    else {
+        hourContainers = manipDataWResults.createSlides();
         manipDataWResults.hoursOfTheDay();
+    }
 })
 
 document.querySelector('.searchIcon').addEventListener('click', function() {

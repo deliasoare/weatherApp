@@ -1,7 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Lilita+One&display=swap');
 
 $loadOrError:#f869a0;
-$loadOrErrorBg: rgba(248, 105, 160, 0.8);
 
 * {
     padding: 0;
@@ -31,7 +30,7 @@ html, body {
             position: absolute;
             width: 20%;
             min-width: 250px;
-            border: 10px solid $loadOrErrorBg;
+            border: 10px solid $loadOrError;
             height: 30%;
             display: flex;
             justify-content: center;
@@ -75,7 +74,7 @@ html, body {
     .content {
         min-height: 100%;
         min-width: 100%;
-        background: url('../assets/background.png') 0 no-repeat, $loadOrErrorBg;
+        background: url('../assets/background.png') 0 no-repeat, $loadOrError;
         background-size: cover;
         background-position: center;
         padding: 1em 4em;

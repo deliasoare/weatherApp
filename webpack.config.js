@@ -49,7 +49,8 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({
             name: 'Webpack App',
-            template: 'src/template.html'
+            template: 'src/template.html',
+            favicon: 'src/assets/favicon.png'
         })
     ]
 }

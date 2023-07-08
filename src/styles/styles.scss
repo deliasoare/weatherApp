@@ -30,7 +30,7 @@ html, body {
             border-radius: 20px;
             position: absolute;
             width: 20%;
-            min-width: 150px;
+            min-width: 250px;
             border: 10px solid $loadOrErrorBg;
             height: 30%;
             display: flex;
@@ -85,7 +85,7 @@ html, body {
             min-width: 100%;
             display: grid;
             align-content: space-evenly;
-            grid-template-rows: 1fr 1fr;
+            grid-template-rows: fit-content 1fr;
             .todayInfo {
                 display: grid;
                 grid-template-columns: 1fr 1fr;
@@ -113,10 +113,10 @@ html, body {
                             font-size: 1.5rem;
                         }
                         .search-box{
-                            margin-top: min(5%, 50px);
+                            margin-top: 10px;
                             width: fit-content;
                             height: fit-content;
-                            position: relative;
+                            position:absolute;
                             .input-search {
                                 height: 50px;
                                 width: 50px;
@@ -175,7 +175,7 @@ html, body {
                 .secondaryInfo {
                     display: flex;
                     flex-direction: column;
-                    align-items: center;
+                    align-items: flex-end;
                     font-size: 1.1rem;
                     gap: 5%;
                     > div {
@@ -187,9 +187,10 @@ html, body {
         .summaryDayHour {
             display: flex;
             flex-direction: column;
-            justify-content: space-evenly;
+            margin-top: 60px;
             .toggleDaysHours {
                 display:flex;
+                margin-bottom: 5%;
                 .days, .hours {
                     background:transparent;
                     outline: none;
@@ -200,7 +201,6 @@ html, body {
                     cursor: pointer;
                 }
                 .days {
-                    border-right: none;
                     background: $loadOrError;
                     border-top-left-radius: 25px;
                     border-bottom-left-radius: 25px;
@@ -216,6 +216,7 @@ html, body {
                 .leftArrow, .rightArrow {
                     width: 30px;
                     height: 30px;
+                    cursor: pointer;
                 }
                 .circles {
                     display: flex;
@@ -234,6 +235,7 @@ html, body {
             }
             .weekSummary, .hourContainer {
                 width: 100%;
+                height: 100%;
                 display: flex;
                 font-size: 1.3rem;
                 justify-content: space-between;
@@ -315,4 +317,64 @@ html, body {
     column-gap: 5%;
     align-items: center;
     width:150px;
+}
+@media (max-width:1000px) {
+    .weekSummary, .hourContainer {
+        flex-direction: column;
+        row-gap: 10%;
+
+        .upcomingDayDiv, .hourDiv {
+            flex-direction: row !important;
+            justify-content: space-between;
+        }
+
+    }
+}
+@media (max-width: 700px) {
+    .name {
+        font-size: 1.5rem !important;
+    }
+    .degrees {
+        font-size: 1.75rem !important;
+    }
+    .dayInfo, .currentTime, .weatherDescription {
+        font-size: 1.25rem !important;
+    }
+}
+@media (max-width: 500px) {
+    .content {
+        padding: 3em !important;
+    }
+    .name {
+        font-size: 1.3rem !important;
+    }
+    .degrees {
+        font-size: 1.4rem !important;
+    }
+    .dayInfo, .currentTime, .weatherDescription {
+        font-size: 1.15rem !important;
+    }
+    .weekSummary {
+        font-size: 1.1rem !important;
+    }
+    .btn-search:focus ~ .input-search{
+        width: 200px !important;
+    }
+    .input-search:focus{
+        width: 200px !important;
+    }
+}
+@media (max-width: 400px) {
+    .weekSummary {
+        font-size: 0.99rem !important;
+    }
+    .days, .hours {
+        font-size: 0.9rem !important;
+    }
+    .search-box {
+        margin-top: 20px !important;
+    }
+    .secDev {
+        width: 100px !important;
+    }
 }
